@@ -797,7 +797,7 @@ def open_flight_window(dep, arr, travel_date):
 
             dep_date = dep_datetime.strftime("%Y-%m-%d")
             dep_time_str = dep_datetime.strftime("%H:%M")
-            arr_date = arr_datetime.strftime("%d-%m-%y")
+            arr_date = arr_datetime.strftime("%Y-%m-%d")
             arr_time_str = arr_datetime.strftime("%H:%M")
 
             flight_data = [
@@ -972,88 +972,146 @@ def show_passenger_list_window():
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    # Track selected passengers
-    selected_vars = []
-    checkbuttons = []
+    # ✅ Track selected passengers directly
+    selected_passengers = []
     passenger_rows = read_passenger_details()
 
     if passenger_rows:
-        for i, entry in enumerate(passenger_rows):
-            card = tk.Frame(scrollable_frame, bg="#ffffff", bd=2, relief="groove")
-            card.config(width=720, height=210)
-            card.pack(pady=10, padx=20)
-            card.pack_propagate(False)
+        adult_rows, child_rows = [], []
+        for entry in passenger_rows:
+            try:
+                dob_dt = datetime.strptime(entry[3].strip(), "%Y-%m-%d")  # unified format
+                today = datetime.today()
+                age = today.year - dob_dt.year - ((today.month, today.day) < (dob_dt.month, dob_dt.day))
+            except:
+                age = 0
+            if age >= 18:
+                adult_rows.append(entry)
+            else:
+                child_rows.append(entry)
 
-            tk.Label(card, text=f"Passenger {i+1}", font=("Helvetica", 13, "bold"), bg="#ffffff").pack(anchor="w", padx=10, pady=(5, 0))
+        # --- helper function to enforce limits ---
+        def update_selection_limits():
+            selected_adults = sum(1 for var, details, cat, cb in selected_passengers if var.get() and cat=="Adult")
+            selected_children = sum(1 for var, details, cat, cb in selected_passengers if var.get() and cat=="Child")
 
-            entry = entry[2:]  # Skip UserID & PassengerID
-            labels = ["Name", "DOB", "Gmail", "Gender", "Phone"]
-            for label, value in zip(labels, entry):
-                row = tk.Frame(card, bg="#ffffff")
-                row.pack(anchor="w", padx=20, pady=2)
-                tk.Label(row, text=f"{label}:", font=("Helvetica", 11, "bold"), bg="#ffffff", width=10, anchor="w").pack(side="left")
-                tk.Label(row, text=value, font=("Helvetica", 11), bg="#ffffff", anchor="w").pack(side="left")
+            # Disable extra adults
+            if selected_adults >= adult_count:
+                for var, details, cat, cb in selected_passengers:
+                    if cat=="Adult" and not var.get():
+                        cb.config(state="disabled")
+            else:
+                for var, details, cat, cb in selected_passengers:
+                    if cat=="Adult":
+                        cb.config(state="normal")
 
-            # Select checkbox
-            var = tk.BooleanVar(value=False)
-            cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11))
-            cb.pack(anchor="e", padx=10, pady=5)
+            # Disable extra children
+            if selected_children >= child_count:
+                for var, details, cat, cb in selected_passengers:
+                    if cat=="Child" and not var.get():
+                        cb.config(state="disabled")
+            else:
+                for var, details, cat, cb in selected_passengers:
+                    if cat=="Child":
+                        cb.config(state="normal")
 
-            selected_vars.append(var)
-            checkbuttons.append(cb)
+        # --- render adults only if needed ---
+        if adult_count > 0 and adult_rows:
+            tk.Label(scrollable_frame, text="Adult", font=("Helvetica", 14, "bold"), bg="#f5f5f5").pack(pady=5)
+            for i, entry in enumerate(adult_rows):
+                card = tk.Frame(scrollable_frame, bg="#ffffff", bd=2, relief="groove")
+                card.config(width=720, height=210)
+                card.pack(pady=10, padx=20)
+                card.pack_propagate(False)
+
+                tk.Label(card, text=f"Adult Passenger {i+1}", font=("Helvetica", 13, "bold"), bg="#ffffff").pack(anchor="w", padx=10, pady=(5, 0))
+
+                details = entry[2:]  # Skip UserID & PassengerID
+                labels = ["Name", "DOB", "Gmail", "Gender", "Phone"]
+                for lbl, value in zip(labels, details):
+                    row = tk.Frame(card, bg="#ffffff")
+                    row.pack(anchor="w", padx=20, pady=2)
+                    tk.Label(row, text=f"{lbl}:", font=("Helvetica", 11, "bold"), bg="#ffffff", width=10, anchor="w").pack(side="left")
+                    tk.Label(row, text=value, font=("Helvetica", 11), bg="#ffffff", anchor="w").pack(side="left")
+
+                var = tk.BooleanVar(value=False)
+                cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11),
+                                    command=update_selection_limits)
+                cb.pack(anchor="e", padx=10, pady=5)
+
+                selected_passengers.append((var, details, "Adult", cb))
+
+        # --- render children only if needed ---
+        if child_count > 0 and child_rows:
+            tk.Label(scrollable_frame, text="Child", font=("Helvetica", 14, "bold"), bg="#f5f5f5").pack(pady=5)
+            for i, entry in enumerate(child_rows):
+                card = tk.Frame(scrollable_frame, bg="#ffffff", bd=2, relief="groove")
+                card.config(width=720, height=210)
+                card.pack(pady=10, padx=20)
+                card.pack_propagate(False)
+
+                tk.Label(card, text=f"Child Passenger {i+1}", font=("Helvetica", 13, "bold"), bg="#ffffff").pack(anchor="w", padx=10, pady=(5, 0))
+
+                details = entry[2:]  # Skip UserID & PassengerID
+                labels = ["Name", "DOB", "Gmail", "Gender", "Phone"]
+                for lbl, value in zip(labels, details):
+                    row = tk.Frame(card, bg="#ffffff")
+                    row.pack(anchor="w", padx=20, pady=2)
+                    tk.Label(row, text=f"{lbl}:", font=("Helvetica", 11, "bold"), bg="#ffffff", width=10, anchor="w").pack(side="left")
+                    tk.Label(row, text=value, font=("Helvetica", 11), bg="#ffffff", anchor="w").pack(side="left")
+
+                var = tk.BooleanVar(value=False)
+                cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11),
+                                    command=update_selection_limits)
+                cb.pack(anchor="e", padx=10, pady=5)
+
+                selected_passengers.append((var, details, "Child", cb))
     else:
-        tk.Label(scrollable_frame, text=f"📭 No Passenger details found.",
-                     font=("Helvetica", 12), fg="gray", bg="#f5f5f5").pack(pady=5)
+        tk.Label(scrollable_frame, text="📭 No Passenger details found.",
+                 font=("Helvetica", 12), fg="gray", bg="#f5f5f5").pack(pady=5)
+
     # Bottom action buttons
     button_frame = tk.Frame(scrollable_frame, bg="#f5f5f5")
     button_frame.pack(pady=20)
 
-    def update_selection(*args):
-        selected_count = sum(var.get() for var in selected_vars)
-        if selected_count >= passenger_count:
-            # Disable all unchecked boxes
-            for var, cb in zip(selected_vars, checkbuttons):
-                if not var.get():
-                    cb.config(state="disabled")
-        else:
-            # Re-enable all
-            for cb in checkbuttons:
-                cb.config(state="normal")
-
-    # Attach trace to each var
-    for var in selected_vars:
-        var.trace_add("write", update_selection)
-
     def proceed_next():
         list_frame.pack_forget()
-        selected_count = sum(var.get() for var in selected_vars)  # m
-        remaining = passenger_count - selected_count              # n - m
 
-        # 🔑 Clear any previous entries before adding fresh ones
-        global passenger_entries
+        global passenger_entries, current_passenger_index,selected_adults,selected_children
         passenger_entries = []
+        selected_adults = 0
+        selected_children = 0
 
-        # Add selected passengers into passenger_entries
-        for i, var in enumerate(selected_vars):
-            if var.get():  # if checkbox selected
-                entry = passenger_rows[i][2:]  # skip UserID & PassengerID
-                name, dob, gmail, gender, phone = entry
-                # calculate age
+        for var, details, cat, cb in selected_passengers:
+            if var.get():
+                name, dob, gmail, gender, phone = details
                 try:
-                    dob_dt = datetime.strptime(dob.strip(), "%Y-%m-%d")
+                    dob_dt = datetime.strptime(dob.strip(), "%Y-%m-%d")  # ✅ unified format
                     today = datetime.today()
                     age = today.year - dob_dt.year - ((today.month, today.day) < (dob_dt.month, dob_dt.day))
                 except:
                     age = ""
+
                 passenger_entries.append((name, dob, str(age), gmail, gender, phone))
 
-        if remaining > 0:
-            # Open form for remaining passengers
-            global current_passenger_index
-            current_passenger_index = len(passenger_entries)  # start after existing
+                if age != "" and int(age) >= 18:
+                    selected_adults += 1
+                else:
+                    selected_children += 1
+
+        remaining_adults = adult_count - selected_adults
+        remaining_children = child_count - selected_children
+
+        if remaining_adults < 0 or remaining_children < 0:
+            messagebox.showerror("❌ Error", "Selection does not match required adult/child count.")
+            list_frame.pack_forget()
+            show_passenger_list_window()
+            return
+
+        if remaining_adults + remaining_children > 0:
+            current_passenger_index = len(passenger_entries)
             open_individual_passenger_form()
         else:
-            # All passengers selected, go to summary/payment
             show_passenger_summary()
 
     tk.Button(button_frame, text="⬅️ Back",
@@ -1064,8 +1122,9 @@ def show_passenger_list_window():
               command=proceed_next,
               bg="#2196F3", fg="white", font=("Helvetica", 12), width=20).pack(side="left", padx=10)
 
+
 def open_individual_passenger_form(prefill=None):
-    global current_passenger_index, passenger_count, passenger_entries, adult_count, child_count
+    global current_passenger_index, passenger_entries, adult_count, child_count, passenger_count
 
     if current_passenger_index >= passenger_count:
         show_passenger_summary()
@@ -1075,18 +1134,21 @@ def open_individual_passenger_form(prefill=None):
     for widget in passenger_form_frame.winfo_children():
         widget.destroy()
 
-    # Label: Adult or Child
-    if current_passenger_index < adult_count:
-        label = f"Adult {current_passenger_index + 1}"
+    # ✅ Decide if this remaining passenger is adult or child
+    entered_adults = sum(1 for e in passenger_entries if e[2] != "" and int(e[2]) >= 18)
+    entered_children = sum(1 for e in passenger_entries if e[2] != "" and int(e[2]) < 18)
+
+    if entered_adults < adult_count:
+        label = f"Adult {entered_adults + 1}"
         dob_mindate = datetime(1900, 1, 1)
         dob_maxdate = datetime.today().replace(year=datetime.today().year - 18)
     else:
-        label = f"Child {current_passenger_index - adult_count + 1}"
+        label = f"Child {entered_children + 1}"
         dob_mindate = datetime.today().replace(year=datetime.today().year - 18)
         dob_maxdate = datetime.today()
 
     tk.Label(passenger_form_frame, text=f"{label} Details", font=("Helvetica", 16, "bold"), bg="#f5f5f5").pack(pady=10)
-    progress_text = f"Passenger {current_passenger_index + 1} of {passenger_count}"
+    progress_text = f"Remaining Passenger {current_passenger_index + 1} of {passenger_count}"
     tk.Label(passenger_form_frame, text=progress_text, font=("Helvetica", 12, "italic"), bg="#f5f5f5", fg="#555").pack(pady=(0, 10))
 
     # Prefill values
@@ -1104,7 +1166,7 @@ def open_individual_passenger_form(prefill=None):
     dob_value = datetime.today().replace(year=datetime.today().year - 18)
     if prefill:
         try:
-            dob_value = datetime.strptime(prefill[1], "%Y-%m-%d")
+            dob_value = datetime.strptime(prefill[1], "%Y-%m-%d")  # ✅ unified format
         except:
             pass
 
@@ -1143,7 +1205,6 @@ def open_individual_passenger_form(prefill=None):
     phone_entry.pack()
 
     def submit_and_next():
-        global current_passenger_index, adult_count, is_editing, backtracking
         update_age()
 
         name = name_var.get().strip()
@@ -1155,48 +1216,40 @@ def open_individual_passenger_form(prefill=None):
         if not name.replace(" ", "").isalpha():
             messagebox.showerror("Invalid Name", "Name must contain only letters and spaces.")
             return
-        
-        if not gmail:
-            messagebox.showerror("Invalid Gmail", " Enter your Gmail ID")
-            return
-        if '@gmail.com' not in gmail or not gname[0]:
+        if not gmail or '@gmail.com' not in gmail or not gname[0]:
             messagebox.showerror("Invalid Gmail", "Enter a valid Gmail ID")
             return
-
         if not phone.isdigit() or len(phone) != 10:
             messagebox.showerror("Invalid Phone Number", "Phone number must be a 10-digit number.")
             return
-        
-        if current_passenger_index >= adult_count and int(age) >= 18:
+        if label.startswith("Child") and int(age) >= 18:
             messagebox.showerror("Invalid Age", "Child must be under 18 years old.")
             return
 
-        passenger_entries.insert(current_passenger_index, (
+        passenger_entries.append((
             name,
-            dob_picker.get_date().strftime("%Y-%m-%d"),
+            dob_picker.get_date().strftime("%Y-%m-%d"),  # ✅ unified format
             age,
             gmail,
             gender_var.get(),
             phone
         ))
 
-        if is_editing and not backtracking:
-            is_editing = False
-            backtracking = False
+        global current_passenger_index
+        current_passenger_index += 1
+        if current_passenger_index >= passenger_count:
             show_passenger_summary()
         else:
-            current_passenger_index += 1
-            backtracking = False
             open_individual_passenger_form()
 
-    tk.Button(passenger_form_frame, text="Next ➡️", command=submit_and_next,
+    tk.Button(passenger_form_frame, text="Next➡️", command=submit_and_next,
               bg="#4CAF50", fg="white", font=("Helvetica", 11), width=16).pack(pady=10)
-
-    # Show Back button only if not editing OR if backtracking
-    if not is_editing or backtracking:
-        tk.Button(passenger_form_frame, text="⬅️ Back", command=go_back_from_passenger_form,
-                  bg="#604745", fg="white", font=("Helvetica", 11), width=16).pack(pady=5)
     
+        # ✅ Back button
+    tk.Button(passenger_form_frame, text="⬅️ Back",
+              command=go_back_from_passenger_form,
+              bg="#795548", fg="white", font=("Helvetica", 11), width=16).pack(pady=5)
+
 def show_passenger_summary():
     passenger_form_frame.pack(fill="both", expand=True)
     for widget in passenger_form_frame.winfo_children():
@@ -1261,16 +1314,29 @@ def edit_passenger(index):
     open_individual_passenger_form(prefill=passenger_data)
 
 def go_back_from_passenger_form():
-    global current_passenger_index, is_editing, backtracking
+    global current_passenger_index, is_editing, backtracking,selected_children,selected_adults
+
     passenger_form_frame.pack_forget()
-    if current_passenger_index == 0:
-        passenger_count_frame.pack(fill="both", expand=True)
-    else:
-        current_passenger_index -= 1
-        backtracking = True
-        is_editing = False  
+
+    if current_passenger_index == 0 and not passenger_entries:
+        show_passenger_list_window()
+        return
+
+    if current_passenger_index == selected_adults + selected_children :
+        show_passenger_list_window()
+        return
+
+    current_passenger_index -= 1
+    backtracking = True
+    is_editing = False  
+
+    if passenger_entries and current_passenger_index < len(passenger_entries):
+        # Pop the last entry so user can re-edit
         passenger_data = passenger_entries.pop(current_passenger_index)
         open_individual_passenger_form(prefill=passenger_data)
+    else:
+        # If no entries yet, just return to selection window
+        show_passenger_list_window()
 
 def cancel_passenger_summary():
     global passenger_entries, current_passenger_index

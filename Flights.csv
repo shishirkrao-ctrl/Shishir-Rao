@@ -1,0 +1,41 @@
+FlightID, Departure, Arrival  , Departure time, Arrival Time, Price
+AI001   , Bengaluru, Chennai  , 09:30         , 11:30       ,  5500
+AI002   , Bengaluru, Hyderabad, 10:00         , 12:00       ,  6000
+AI003   , Bengaluru, Delhi    , 06:30         , 09:30       ,  8000
+AI004   , Bengaluru, Kolkata  , 14:30         , 18:00       , 10000
+IN001   , Bengaluru, Kolkata  , 17:30         , 20:30       , 10000
+IN002   , Bengaluru, Hyderabad, 23:00         , 00:00       ,  6000
+IN003   , Bengaluru, Delhi    , 23:00         , 2:00        ,  9500
+IN004   , Bengaluru, Chennai  , 15:00         , 17:00       ,  5600
+AI005   , Chennai  , Bengaluru, 13:00         , 15:00       ,  6000
+AI006   , Chennai  , Hyderabad, 04:00         , 05:30       ,  4500
+AI007   , Chennai  , Delhi    , 07:30         , 10:30       , 10000
+AI008   , Chennai  , Kolkata  , 13:30         , 16:00       ,  9000
+IN005   , Chennai  , Bengaluru, 18:00         , 19:30       ,  4500
+IN006   , Chennai  , Hyderabad, 16:00         , 17:30       ,  5000
+IN007   , Chennai  , Delhi    , 12:00         , 15:00       , 10000
+IN008   , Chennai  , Kolkata  , 19:00         , 21:30       ,  8000
+AI009   , Hyderabad, Bengaluru, 16:00         , 18:00       ,  6000
+AI010   , Hyderabad, Chennai  , 12:00         , 13:30       ,  4500
+AI011   , Hyderabad, Delhi    , 08:00         , 11:00       ,  9500
+AI012   , Hyderabad, Kolkata  , 21:00         , 23:30       ,  7000
+IN009   , Hyderabad, Bengaluru, 15:00         , 17:00       ,  4500
+IN010   , Hyderabad, Chennai  , 19:00         , 20:30       ,  4000
+IN011   , Hyderabad, Delhi    , 18:00         , 21:00       ,  8500
+IN012   , Hyderabad, Kolkata  , 06:00         , 08:30       ,  6500
+AI013   , Delhi    , Bengaluru, 14:00         , 17:00       ,  9500
+AI014   , Delhi    , Chennai  , 15:30         , 19:30       , 10000
+AI015   , Delhi    , Hyderabad, 17:00         , 20:00       ,  9500
+AI016   , Delhi    , Kolkata  , 20:00         , 21:30       ,  4500
+IN013   , Delhi    , Bengaluru, 15:00         , 18:00       ,  9500
+IN014   , Delhi    , Chennai  , 21:00         , 00:00       ,  8500
+IN015   , Delhi    , Hyderabad, 04:00         , 07:00       ,  7000
+IN016   , Delhi    , Kolkata  , 06:00         , 07:30       ,  4500
+AI017   , Kolkata  , Bengaluru, 00:00         , 03:30       , 10000
+AI018   , Kolkata  , Chennai  , 20:00         , 04:30       ,  8000
+AI019   , Kolkata  , Hyderabad, 05:00         , 07:30       ,  7000
+AI020   , Kolkata  , Delhi    , 08:30         , 10:00       ,  4000
+IN017   , Kolkata  , Bengaluru, 04:00         , 07:00       ,  9000
+IN018   , Kolkata  , Chennai  , 08:00         , 10:30       ,  8500
+IN019   , Kolkata  , Hyderabad, 15:30         , 18:00       ,  7000
+IN020   , Kolkata  , Delhi    , 11:00         , 12:00       ,  3500

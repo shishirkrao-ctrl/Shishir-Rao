@@ -1,1 +1,4 @@
 UserID, FlightID, DepartureDate, ArrivalDate, PassengerID
+U001  , AI004   , 2025-11-30   , 2025-11-30 , U001P001   
+U001  , AI004   , 2025-11-30   , 2025-11-30 , U001P001   
+U001  , AI004   , 2025-11-30   , 2025-11-30 , U001P002   

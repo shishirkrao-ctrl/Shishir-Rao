@@ -45,6 +45,7 @@ is_editing = False
 backtracking = False
 pending_booking_data = []
 selected_passengers = []
+selected_passenger_ids = set()
 
 # -------------------- User Management --------------------
 def read_users():
@@ -952,8 +953,6 @@ def collect_passenger_info(count, adults, children):
     passenger_count_frame.pack_forget()
     show_passenger_list_window()
 
-# Persist selection across navigation
-selected_passenger_ids = set()
 def show_passenger_list_window():
     passenger_count_frame.pack_forget()
     passenger_form_frame.pack_forget()
@@ -1561,6 +1560,7 @@ def show_booking_summary():
               bg="#604745", fg="white", font=("Helvetica", 12), width=20).pack(pady=20)
     
 def save_booking():
+    global selected_passenger_ids
     try:
         if not passenger_entries:
             messagebox.showerror("❌ Error", "No passenger data to save.")
@@ -1596,6 +1596,7 @@ def save_booking():
             
             
         show_booking_summary()
+        selected_passenger_ids = set()
 
     except Exception as e:
         messagebox.showerror("❌ Error", f"Failed to save booking: {e}")

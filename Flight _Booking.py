@@ -562,7 +562,18 @@ def show_passenger_details(flight_id, dep_date, parent_frame, booking_source=BOO
         # ✅ Cancel Passenger Button (right-aligned, only for current bookings)
         if booking_source == BOOKING_FILE:
             def cancel_passenger(row_data=row):
-                confirm = messagebox.askyesno("❌ Confirm Cancellation", f"Cancel booking for passenger '{row_data[4].strip()}'?")
+                # Get PassengerID from booking row
+                passenger_id = row_data[4].strip()
+
+                # Find matching passenger name
+                passenger_name = passenger_id
+                for rows in passenger_row:
+                    if rows[1].strip() == passenger_id:
+                        passenger_name = rows[2].strip()   # Name column
+                        break
+
+                confirm = messagebox.askyesno("❌ Confirm Cancellation",
+                    f"Cancel booking for passenger '{passenger_name}'?")
                 if not confirm:
                     return
 
@@ -580,7 +591,8 @@ def show_passenger_details(flight_id, dep_date, parent_frame, booking_source=BOO
                     writer.writerows(updated_rows)
 
                 align_csv(BOOKING_FILE)
-                messagebox.showinfo("✅ Cancelled", f"Passenger '{row_data[4].strip()}' has been removed.")
+                messagebox.showinfo("✅ Cancelled",
+                    f"Passenger '{passenger_name}' has been removed.")
                 passenger_frame.pack_forget()
                 show_passenger_details(flight_id, dep_date, parent_frame, booking_source)
 

@@ -1,0 +1,75 @@
+line 17: 
+zip(*rows): 
+zip converts list of row to list of column
+Ex:	l = [['Shishir','10'],['Rahul','20']]
+	print(zip(*l))                               #  It prints [('Shishir', 'Rahul'), ('10,'20')]
+
+'*' in zip(*rows):
+Is an unpacking operator
+It unpacks each inner list(row) to pass it as an argument to zip()
+Ex:	zip(l) takes l as one argument
+	zip(*l) takes each inner list of l as one argument
+
+line 22:
+for i, cell in enumerate(row): :
+'row' is an inner list 
+'i' will hold the index of the inner list
+'cell' will hold the elements of the inner list
+
+line 24:
+padded = clean.ljust(col_widths[i]):
+ljust(width) is left justifies. 
+It adds space if string is less than width
+
+line 52:
+if not os.path.exists(LOGIN_FILE):
+os is a module
+path is a sub module that deals with file path operation
+exists is a function that checks whether the path exists or not (returns Boolean value)
+
+line 84:
+writer.writerow([userID]+User_details):
+User_details is a list
+
+line 106:
+writer.writerow([userID,passengerID]+passenger_details) :
+passenger_details is a list
+
+line 114:
+userID = 'U' + str(int(users[-1][2].strip()[1::])+1).zfill(3) :
+users is a list of list
+users[-1] will extract the last user details
+users[-1][2] will extract the last userID
+
+why indexing from 1 ( users[-1][2].strip()[1::] )??
+userID is in the form of "Uxxx" where xxx are numbers
+Ex: 	u1 = "U001"
+	u = u1[1::] 	# u = "001"
+					# To increment convert to int add 1 convert to string.
+	U =int(u1)	# U = 1
+	U += 1		# U = 2
+	u = str(U)	# u = "2"	But we need "002"
+
+zfill(3):
+It adds 0 on the left until it reaches the given width
+Ex:	a = "19"
+	b = a.zfill(3)	# b = "019"
+	b = a.zfill(4)	# b = "0019"
+
+In the previous example,
+We need "002" but after converting to string it is "2"
+So we do 
+	var = u.zfill(3)	#var = "002"
+
+line 126:
+center_window(300, 380) :
+center_window is a function which make sure the UI stays at the center of screen
+
+line 127:
+login_frame.pack_forget() :
+Removes the login_frame widget from the layout [Only removed not destroyed]
+
+line 128:
+account_frame.pack(fill="both", expand=True) :
+Creating account_frame( a frame ) into the layout
+

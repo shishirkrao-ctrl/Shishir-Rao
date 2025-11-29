@@ -111,7 +111,7 @@ def generate_userID():
     if not users:
         return "U001"
     
-    userID = 'U' + str(int(users[len(users)-1][2].strip()[1::])+1).zfill(3)
+    userID = 'U' + str(int(users[-1][2].strip()[1::])+1).zfill(3)
     return userID
 
 def generate_passengerID():

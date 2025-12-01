@@ -73,3 +73,42 @@ line 128:
 account_frame.pack(fill="both", expand=True) :
 Calling account_frame( a frame ) into the layout
 
+line 130:
+for widget in account_frame.winfo_children(): :
+account_frame is a frame.
+winfo_children() is a list containing all the labels, buttons, etc 
+account_frame.winfo_children() returns a list of all the widgets in account_frame
+
+line 131:
+widget.destroy() :
+widget is elements of winfo_children (List) 
+widget.destroy() destroyes the widget
+
+line 133:
+box = tk.Frame(account_frame, bg="#e3f2fd", bd=2, relief="groove") :
+tk.Frame(account_frame,...) creating a new widget frame [inside account_frame]
+
+bg = "#e3f2fd" : 
+It is colour code 
+bg is used for background colour
+
+bd = 2 :
+Sets the border width of the box to 2 pixels 
+
+relief = "groove":
+Gives the border a grooved look. 
+Other options like "flat", "raised", "sunken", ridge"
+
+line 134:
+box.place(relx=0.5, rely=0.5, anchor="center", width=300, height=380) :
+box.place(...) is a geometry manager [like pack(),grid()]
+
+relx = 0.5 , rely = 0.5 :
+Places the box at 50% of width and 50% of height of account_frame
+
+anchor = "center" :
+Aligns the widget at the center 
+Other options like "n", "s", "e", "w", "nw", "se"
+
+width=300, height=380 :
+Width and height of the box

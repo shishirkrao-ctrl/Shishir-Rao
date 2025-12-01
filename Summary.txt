@@ -71,5 +71,5 @@ Removes the login_frame widget from the layout [Only removed not destroyed]
 
 line 128:
 account_frame.pack(fill="both", expand=True) :
-Creating account_frame( a frame ) into the layout
+Calling account_frame( a frame ) into the layout
 

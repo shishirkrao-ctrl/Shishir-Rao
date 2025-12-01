@@ -279,7 +279,7 @@ def user_details(Username, password, userID):
 
     def finalize_account():
         name = name_entry.get().strip()
-        dob = dob_picker.get_date().strftime("%d-%m-%y")
+        dob = dob_picker.get_date().strftime("%d-%m-%Y")
         email = email_entry.get().strip()
         phone = phone_entry.get().strip()
         nationality = nationality_cb.get().strip()
@@ -373,6 +373,7 @@ def login():
     tk.Button(box, text="Submit ✅", command=submit, bg="#FF9800", fg="white", font=("Helvetica", 11)).pack(pady=(10, 5))
     tk.Button(box, text="⬅️ Back", command=lambda: [account_frame.pack_forget(),center_window(800, 600),login_frame.pack(pady=10)], 
               bg="#604745", fg="white", font=("Helvetica", 11)).pack(pady=5)
+    
 # -------------------- Dashboard --------------------
 def show_logged_in_user_details():
     dashboard_frame.pack_forget()  # Hide dashboard
@@ -432,8 +433,7 @@ def segregate_bookings():
     if not os.path.exists(current_file):
         return
 
-    current_rows = []
-    previous_rows = []
+    current_rows, previous_rows = [], []
 
     with open(current_file, "r") as file:
         reader = csv.reader(file)

@@ -1,3 +1,9 @@
+line 10:
+try and except block:
+Error handling
+Write a rosky code inside try block
+If there is an error then it executes except block
+
 line 17: 
 zip(*rows): 
 zip converts list of row to list of column
@@ -112,3 +118,176 @@ Other options like "n", "s", "e", "w", "nw", "se"
 
 width=300, height=380 :
 Width and height of the box
+
+line 136:
+tk.Label(box, text="🆕 Create Account", font=("Helvetica", 14, "bold"), bg="#e3f2fd").pack(pady=(15, 10)) :
+
+tk.Label(box) creates a label inside the box [Label() is a function]
+
+text="🆕 Create Account" :
+Label text is Create Account
+
+font=("Helvetica", 14, "bold") :
+Font details of text (label)
+
+pady = (15,10) :
+Adds 15 pixels above and 10 pixels below (uneven spacing) the widget (label) 
+Ex: pady = 10
+	# Adding 10 pixels above and below (even spacing) the widget 
+
+line 139:
+entry_user = tk.Entry(box, font=("Helvetica", 11), justify="center")
+entry_user is your widget (text field) inside the box
+
+tk.Entry() creates a single line text input field 
+
+justify = "center" :
+Aligns the text that the user types in the entry box to the center.
+Other options are left and right
+
+line 140:
+entry_user.insert(0, prefill_user) :
+insert(index,text) : 
+This is a method of Tkinter’s Entry widget
+It inserts the given text at specified index
+
+index = 0, text = prefill_user :
+Inserts the text at index 0 [At the beginning of the entry box]
+prefill_user is " " at the beginning
+entry_user is empty at the beginning, so no text is displayed
+
+line 149:
+Username = entry_user.get().strip() :
+Username is a variable
+get() is a method to retrieve the contents in entry_user widget
+
+Ex:	If user typed Rahul in the input field (entry_user)
+	User = entry_user.get()		# User = "Rahul"
+
+line 153:
+messagebox.showerror("🚫 Error", "Username and password cannot be empty.") :
+messagebox is a Tkinter’s module
+showerror() is it's function
+
+showerror(title,message) :
+It takes 2 arguments title and message
+
+line 182:
+tk.Button(box, text="Next ➡️", command=proceed_to_confirm,
+            bg="#4CAF50", fg="white", font=("Helvetica", 11)).pack(pady=(10, 5)) :
+
+tk.Button(...) creates a button widget
+
+command = proceed_to_confirm :
+Function to be called when the button is clicked
+
+fg = "white" :
+Sets the text colour to white
+
+line 185:
+tk.Button(box, text="⬅️ Back", 
+		command=lambda: [account_frame.pack_forget(), center_window(800, 600), login_frame.pack(pady=10)],
+              bg="#604745", fg="white", font=("Helvetica", 11)).pack()
+
+command = lambda:[...]:
+lambda is used to run multiple commands at a time.
+
+.pack():
+Places the button directly below the "Next" button
+
+line 193:
+ account_frame.configure(bg="#f5f5f5") :
+ configure() Updates the widget's properties after it has been created
+
+line 236:
+dob_mindate = datetime(1900, 1, 1) :
+datetime() is a function imported from datetime module
+Format: datetime(yyyy,mm,dd)
+here we are setting minimum date to be shown in the calendar as 1900-Jan-01
+
+line 237:
+dob_maxdate = datetime.today().replace(year=datetime.today().year - 18) :
+datetime.today() :
+Gives today's date and time [At the time of execution]
+
+.replace(year=...) :
+Creates a new datetime object with year replaced by the year you specify
+
+datetime.today().year - 18 :
+Returns current year - 18		# Current year is an int
+
+dob_maxdate:
+Setting the max date to be shown in the calendar
+
+line 239:
+dob_picker = DateEntry(
+			box,	width=12,	
+			background='darkblue',	foreground='white',		
+			borderwidth=2,	mindate=dob_mindate,	
+			maxdate=dob_maxdate,	year=dob_maxdate.year,	
+			month=dob_maxdate.month,	day=dob_maxdate.day,	
+			date_pattern='dd-mm-yyyy',	state="normal"
+			)
+
+DateEntry() :
+Creates a date picker widget inside Tkinter’s box
+
+width = 12 :
+Sets the width of entry field 
+
+borderwidth = 2 :
+Sets the width of border of calendar 
+
+mindate = dob_mindate , maxdate = dob_maxdate :
+Sets the minimum and maximum selectable date respectively
+
+year = dob_maxdate.year, month=dob_maxdate.month, day=dob_maxdate.day :
+Sets the default selected date to the maximum allowed Date
+
+date_pattern = 'dd-mm-yyy' :
+Format of how the date is to be displayed
+Ex: 01-12-2025
+
+state = "normal" :
+User can type a date manually or use the drop‑down calendar
+Other options are "readonly" , "disabled"
+
+line 253:
+dob_picker.pack():
+Places the widget directly below the "Date of Birth" label
+
+line 262:
+gender_var = tk.StringVar(value="Male") :
+tk.StringVar() :
+It is a special Tkinter variable class that holds a string value
+Here value is Male
+
+line 263:
+gender_frame = tk.Frame(box, bg="#e3f2fd") :
+Creating a gender_frame inside box (which itself is a frame)
+
+ttk.Radiobutton(gender_frame, 	text="Male", 
+				variable=gender_var, 	value="Male"
+			   ).pack(side="left", padx=10)
+
+ttk.Radiobutton(...) :
+Creates a Radiobutton widget. 
+
+variable = gender_var :
+Links the radio button to a Tkinter variable (StringVar)
+All radio buttons in the same group share this variable.
+When this button is selected, the variable’s value changes.
+
+value = "Male" :
+Defines what value should gender_var hold if the button is selected
+Here it is "Male"
+So by default the "Male" button is selected
+
+.pack(side = "left", padx = 10) :
+Places the button on the left side of the frame
+Gives a spacing of 10 pixels on both side
+
+Note:
+tk. and ttk. are different
+tk is Tkinter
+ttk is Themed Tkinter

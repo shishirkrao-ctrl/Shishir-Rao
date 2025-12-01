@@ -201,7 +201,7 @@ def confirm_password(Username, password,userID):
     entry_confirm.pack(pady=5)
 
     def submit():
-        confirm = entry_confirm.get()
+        confirm = entry_confirm.get().strip()
         if confirm == password:
             account_frame.pack_forget()
             center_window(400, 500)
@@ -248,7 +248,7 @@ def user_details(Username, password, userID):
         month=dob_maxdate.month,
         day=dob_maxdate.day,
         date_pattern='dd-mm-yyyy',
-        state="readonly"
+        state="normal"
     )
     dob_picker.pack()
 

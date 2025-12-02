@@ -291,3 +291,62 @@ Note:
 tk. and ttk. are different
 tk is Tkinter
 ttk is Themed Tkinter
+
+line 277:
+nationality_cb = ttk.Combobox(box, values=countries, state="readonly", justify="center") :
+
+ttk.Combobox(...) :
+A drop-down list widget from Tkinter’s themed ttk module. 
+It lets users select one option from a list.
+
+state = "readonly :
+It lets the user to select from the drop down list
+
+line 281:
+name = name_entry.get().strip() :
+name_entry :
+It is the name given to Entry widget
+
+name_entry.get() :
+It retrieves the data stored in the Entry widget
+
+line 282:
+dob = dob_picker.get_date().strftime("%d-%m-%Y") :
+dob_picker :
+It is the name given to DateEntry widget
+
+.get_date() :
+It returns the date in DateEntry widget as a datetime.date object
+datetime.date(2025,12,2)	#datetime.date(year,month,date)
+
+.strftime("%d-%m-%Y") :
+It converts the datetime.date object to string
+Format ("DD-MM-YYYY")
+
+There is also ("%d-%m-%y") format 
+In this format, the string format is "DD-MM-YY"
+
+line 398:
+card.config(width=720, height=300) :
+It will set the width and height of the card
+
+line 400:
+card.pack_propagate(False) :
+This make sure that the frame does not resize itself to fit a widget.
+If it is True, the frame will automatically adjust its size to fit the widget
+By default the argument is True
+
+line 405:
+for label, value in zip(labels, details): :
+zip(labels, details) :
+zip takes more than 1 iterables and pairs their elements
+It returns a list of tuple
+So label, value will hold elements of the tuple respectively
+
+line 420:
+account_btn.place(x=10, y=10, anchor="nw") :
+.place() :
+It is also a geometry manager positions widget at absolute co ordinates
+
+x=10, y =10 :
+Used to place the button at 10 pixels from left and 10 pixels from top

@@ -350,3 +350,112 @@ It is also a geometry manager positions widget at absolute co ordinates
 
 x=10, y =10 :
 Used to place the button at 10 pixels from left and 10 pixels from top
+
+line 452:
+dep_datetime = datetime.strptime(f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M") :
+datetime.strptime() combines a date string and time string into a datetime object
+
+f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M" :
+Concatenates date and time into single string
+Format "Year-Month-Date Hour-Minutes"
+
+line 486:
+canvas_container = tk.Frame(passenger_frame, bg="#f5f5f5") :
+canvas_container is a frame inside passenger_frame
+
+line 489:
+canvas = tk.Canvas(canvas_container, bg="#f5f5f5", highlightthickness=0) :
+tk.Canvas() :
+Creates a new canvas widget inside canvas_container (frame)
+
+highlightthickness = 0 :
+Canvas usually have a default thickness.
+Now it will be removed
+
+line 490:
+scrollbar = ttk.Scrollbar(canvas_container, orient="vertical", command=canvas.yview) :
+ttk.Scrollbar() creates a scrollbar widget
+
+orient = "vertical" :
+Makes the scrollbar vertical
+
+command=canvas.yview:
+Connects the scrollbar movement to canvas's vertical view
+
+line 493:
+scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))) :
+Makes sure that the scrollbar is scrollable 
+
+line 494:
+canvas.create_window((0, 0), window=scrollable_frame, anchor="nw") :
+canvas.create_window() :
+This method places a Tkinter widget inside canvas
+
+create_window((0,0)) :
+Widget will appear on the top left corner of the canvas
+
+window = scrollable_frame :
+This specifies which widget you are embedding.
+
+line 495:
+canvas.configure(yscrollcommand=scrollbar.set) :
+This tells the canvas to move when the scrollbar moves
+
+line 504:
+dep_date = datetime.strptime(dep_date, "%Y-%m-%d").strftime("%Y-%m-%d")
+strptime() :
+Converts string to datetime object
+
+strftime():
+Converts datetime object to string
+
+line 542:
+header.pack(fill="x") :
+fill = "x" :
+Fills how much ever space it gets in x direction (horizontal)
+
+line 575:
+confirm = messagebox.askyesno("❌ Confirm Cancellation",
+							f"Cancel booking for passenger '{passenger_name}'?")
+askyesno() is a function which returns True if user click Yes else returns no
+
+line 698:
+route.columnconfigure(i, weight=1, uniform="route") :
+route.columnconfigure(...) :
+Creates new columns inside route frame
+
+(i,weight=1,uniform="route") :
+i is from for loop
+weight takes care of the size of the column
+uniform make sure that each column has same size	
+If uniform is not used then space is adjusted based on the contents of the column
+
+line 701:
+dep.grid(row=0, column=0) :
+grid():
+Tkinter’s geometry manager that arranges widgets in a table‑like structure 
+It follows zero based index
+
+(row=0,column=0)
+It will place the contents in row 1
+
+Note:
+In the next line pack() is used. 
+So all the three labels(widget) will be placed one below the other in same row
+
+line 794:
+tomorrow = travel_date + timedelta(days=1) :
+tomorrow has a date which is 1 day after the date of travel_date
+
+travel_date is datetime.date object
+
+timedelta(days=1):
+It is a timedelta object which represent a duration of time
+Here it is one day
+
+line 801:
+dep_datetime = datetime.combine(travel_date, dep_time.time()) :
+dep_datetime is a datetime.datetime object 
+
+.combine(travel_date, dep_datetime.time()):
+It combines date from travel_date and time from dep_datetime

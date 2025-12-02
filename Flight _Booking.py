@@ -433,7 +433,7 @@ def segregate_bookings():
     if not os.path.exists(current_file):
         return
 
-    current_rows, previous_rows = [], []
+    current_rows,previous_rows = [],[]
 
     with open(current_file, "r") as file:
         reader = csv.reader(file)

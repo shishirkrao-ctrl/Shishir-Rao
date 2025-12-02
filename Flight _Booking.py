@@ -566,7 +566,7 @@ def show_passenger_details(flight_id, dep_date, parent_frame, booking_source=BOO
                 passenger_id = row_data[4].strip()
 
                 # Find matching passenger name
-                passenger_name = passenger_id
+                passenger_name = ""
                 for rows in passenger_row:
                     if rows[1].strip() == passenger_id:
                         passenger_name = rows[2].strip()   # Name column
@@ -694,9 +694,8 @@ def display_user_bookings():
 
             route = tk.Frame(card, bg="#ffffff")
             route.pack(fill="x", padx=10, pady=6)
-            route.columnconfigure(0, weight=1, uniform="route")
-            route.columnconfigure(1, weight=1, uniform="route")
-            route.columnconfigure(2, weight=1, uniform="route")
+            for i in range(3):
+                route.columnconfigure(i, weight=1, uniform="route")
 
             dep = tk.Frame(route, bg="#ffffff")
             dep.grid(row=0, column=0)
@@ -719,11 +718,12 @@ def display_user_bookings():
 
     tk.Button(button_frame, text="🟢 Current Bookings", command=lambda: show_bookings("Current"),
               bg="#4CAF50", fg="white", font=("Helvetica", 11)).pack(side="left", padx=10)
-    tk.Button(button_frame, text="🔙 Previous Bookings", command=lambda: show_bookings("Previous"),
+    tk.Button(button_frame, text="🔵 Previous Bookings", command=lambda: show_bookings("Previous"),
               bg="#2196F3", fg="white", font=("Helvetica", 11)).pack(side="left", padx=10)
 
     tk.Button(bookings_frame, text="⬅️ Back", command=lambda: [bookings_frame.pack_forget(), dashboard_frame.pack(fill="both",expand=True)],
               bg="#604745", fg="white", font=("Helvetica", 12)).pack(pady=10)
+    
 # -------------------- Flight Search & Booking --------------------
 def open_search_window():
     dashboard_frame.pack_forget()
@@ -760,7 +760,7 @@ def open_search_window():
         search_frame.pack_forget()
         open_flight_window(dep, arr, travel_date)
 
-    ttk.Button(search_frame, text="Search Flights", command=search_and_show).pack(pady=10)
+    tk.Button(search_frame, text="Search Flights", command=search_and_show,bg = "#4CAF50",fg="white",font=("Helvetica", 12)).pack(pady=10)
 
     tk.Button(search_frame, text="⬅️ Back", command=lambda: [search_frame.pack_forget(), dashboard_frame.pack(fill="both",expand=True)],
               bg="#604745", fg="white", font=("Helvetica", 11)).pack(pady=10)
@@ -867,9 +867,8 @@ def open_flight_window(dep, arr, travel_date):
 
             route_frame = tk.Frame(card, bg="#ffffff")
             route_frame.pack(fill="x", padx=10, pady=5)
-            route_frame.columnconfigure(0, weight=1, uniform="route")
-            route_frame.columnconfigure(1, weight=1, uniform="route")
-            route_frame.columnconfigure(2, weight=1, uniform="route")
+            for i in range(3):
+                route_frame.columnconfigure(i, weight=1, uniform="route")
 
             dep_block = tk.Frame(route_frame, bg="#ffffff")
             dep_block.grid(row=0, column=0, sticky="w")

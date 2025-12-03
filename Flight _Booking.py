@@ -1051,6 +1051,8 @@ def show_passenger_list_window():
         cb.pack(anchor="e", padx=10, pady=5)
 
         max_quota = adult_count if category == "Adult" else child_count
+        seat_label = tk.Label(card, text="Seats", font=("Helvetica", 11), bg="#ffffff")
+
         spin = tk.Spinbox(card, from_=1, to=max_quota, font=("Arial", 12), width=5, justify="center", command=recalc_quotas_and_enforce)
         spin.delete(0, "end")
         spin.insert(0, "1")
@@ -1060,6 +1062,7 @@ def show_passenger_list_window():
         # Restore previous selection
         if passenger_id in selected_passenger_ids:
             var.set(True)
+            seat_label.pack(anchor="e", padx=10)
             spin.pack(anchor="e", padx=10, pady=5)
             # Restore quantity if available
             if passenger_id in selected_passenger_quantities:
@@ -1068,8 +1071,10 @@ def show_passenger_list_window():
 
         def toggle_selection():
             if var.get():
+                seat_label.pack(anchor="e", padx=10)
                 spin.pack(anchor="e", padx=10, pady=5)
             else:
+                seat_label.pack_forget()
                 spin.pack_forget()
                 spin.delete(0, "end")
                 spin.insert(0, "1")

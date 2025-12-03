@@ -459,3 +459,82 @@ dep_datetime is a datetime.datetime object
 
 .combine(travel_date, dep_datetime.time()):
 It combines date from travel_date and time from dep_datetime
+
+line 1006:
+for var, spin, cat, cb, pid, details in selected_rows: :
+Unpacking the elements from tuple
+
+selected_rows :
+It is a list of tuples
+Tuple contains (Boolean value, spinbox widget, category, passenger_id,details)
+
+var:
+Contains a Boolean widget (an object)
+var.get() will return Boolean value 
+
+spin:
+It contains spinbox widget (an object)
+spin.get() will return a number (string)
+
+cat:
+It contains "Adult" or "Child"
+
+cb:
+It contains check button widget
+
+pid:
+It contains passenger_id
+
+details:
+It contains a list of passenger info
+
+line 1018:
+spin.config(to=current_qty + max(0, remaining_adults)) :
+spin.config(...) :
+Updates the configuration on spinbox widget
+
+to = :
+Updates the upper limit of the checkbox
+
+max(0, remaining_adults) :
+If remaining_adults becomes -ve then it returns 0
+Else returns value of remaining_adults
+
+line 1025:
+cb.config(state="disabled") :
+cb.config(...) :
+Updates the configuration of checkbox widget
+
+state = "disabled":
+It will disable the checkbox
+
+line 1050:
+cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11)) :
+tk.Checkbutton(...) :
+It creates a checkbox 
+
+variable = var :
+var is a Boolean value
+If var is True the checkbox will be ticked
+Else the checkbox will be unticked
+
+line 1056:
+spin = tk.Spinbox(card, from_=1, to=max_quota, font=("Arial", 12), 
+					width=5, justify="center", command=recalc_quotas_and_enforce)
+tk.Spinbox(...) :
+This creates a spinbox (counter)
+from_ = 1 :
+Start value is set to 1
+
+to = max_quota :
+Max value is set to max_quota
+
+line 1057:
+spin.delete(0, "end") :
+Removes any existing text inside the Spinbox.
+This clears the entire content.
+
+line 1058:
+spin.insert(0, "1") :
+Inserts the string "1" at index 0
+This means the Spinbox will start with the value 1 instead of being empty.

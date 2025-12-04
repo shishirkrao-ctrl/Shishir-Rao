@@ -1111,7 +1111,8 @@ def show_passenger_list_window():
     button_frame.pack(pady=20)
 
     def proceed_next():
-        global passenger_entries, current_passenger_index, selected_adults, selected_children, selected_passenger_ids, selected_passenger_quantities
+        global passenger_entries, current_passenger_index, selected_adults 
+        global selected_children, selected_passenger_ids, selected_passenger_quantities
         passenger_entries = []
         selected_passenger_ids = set()
         selected_passenger_quantities = {}
@@ -1303,11 +1304,7 @@ def show_passenger_summary():
     scrollbar = ttk.Scrollbar(passenger_form_frame, orient="vertical", command=canvas.yview)
     scroll_frame = tk.Frame(canvas, bg="#f5f5f5")
 
-    scroll_frame.bind(
-        "<Configure>",
-        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-    )
-
+    scroll_frame.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
     canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
     canvas.configure(yscrollcommand=scrollbar.set)
 
@@ -1447,7 +1444,8 @@ def show_payment_options(method):
     payment_option_frame = tk.Frame(root, bg="#f5f5f5")
     payment_option_frame.pack(fill="both", expand=True)
 
-    tk.Label(payment_option_frame, text=f"{method} Options", font=("Helvetica", 18, "bold"), bg="#f5f5f5").pack(pady=20)
+    tk.Label(payment_option_frame, text=f"{method} Options", font=("Helvetica", 18, "bold"), 
+                bg="#f5f5f5").pack(pady=20)
 
     options = {
         "UPI": ["GPay", "PhonePe", "Paytm"],
@@ -1530,9 +1528,8 @@ def show_booking_summary():
 
     route_frame = tk.Frame(card, bg="#ffffff")
     route_frame.pack(fill="x", padx=10, pady=5)
-    route_frame.columnconfigure(0, weight=1, uniform="route")
-    route_frame.columnconfigure(1, weight=1, uniform="route")
-    route_frame.columnconfigure(2, weight=1, uniform="route")
+    for i in range(3):
+        route_frame.columnconfigure(i, weight=1, uniform="route")
 
     dep_block = tk.Frame(route_frame, bg="#ffffff")
     dep_block.grid(row=0, column=0, sticky="w")
@@ -1674,7 +1671,7 @@ passenger_count_frame = tk.Frame(root, bg="#f5f5f5")
 
 passenger_form_frame = tk.Frame(root, bg="#f5f5f5")
 
-payment_frame = tk.Frame(root)
+payment_frame = tk.Frame(root, bg = "#f5f5f5")
 
 # Run the application
 root.mainloop()

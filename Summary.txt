@@ -538,3 +538,33 @@ line 1058:
 spin.insert(0, "1") :
 Inserts the string "1" at index 0
 This means the Spinbox will start with the value 1 instead of being empty.
+
+line 1064:
+var.set(True) :
+This updates the  variable’s value to True
+
+line 1135:
+for _ in range(qty): :
+_  is used because it is not used anywhere inside for loop
+Anything can be used instead of _
+
+line 1493:
+refund_var.trace_add("write", update_button_state) :
+refund_var : 
+It is a variable which holds Boolean value
+
+trace_add(mode,function) :
+It is a built in Tkinter method
+It lets you attach a callback function that will run automatically when the variable changes.
+
+write:
+This is the mode argument for trace_add()
+It triggers the callback function when the variable’s value is changed
+
+line 1634:
+root = tk.Tk() :
+This creates the main Tkinter application window
+
+line 1677:
+root.mainloop() :
+This makes sure the application window is open until it is closed forcefully

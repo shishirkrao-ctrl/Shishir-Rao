@@ -2,3 +2,6 @@ UserID, PassengerID, Name         , DOB       , Email                , Gender, P
 U001  , U001P001   , Shishir Rao K, 2007-04-29, shishirkrao@gmail.com, Male  , 7022859955
 U001  , U001P002   , Rahul J      , 2006-07-14, rj@gmail.com         , Male  , 8900147856
 U001  , U001P003   , Suresh M     , 2012-09-14, rj@gmail.com         , Male  , 7311890431
+U002  , U002P001   , Sharath S K  , 2007-02-06, sharathsk@gmail.com  , Male  , 8966041439
+U002  , U002P002   , Sithanshu K  , 1976-12-10, sithk1@gmail.com     , Male  , 9880712374
+U002  , U002P003   , Manish R     , 2011-12-11, mr123@gmail.com      , Male  , 8900186791

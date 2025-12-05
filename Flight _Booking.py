@@ -1,3 +1,4 @@
+#-----------------Importing Modules-----------------------------
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
@@ -6,124 +7,136 @@ import os
 from datetime import datetime, timedelta
 
 #--------------Aligning  contents in csv File--------------------
-def align_csv(file_path):                                       
+def align_csv(file_path):                          # For Better file Readability
     try:
-        with open(file_path, "r") as f:
-            rows = list(csv.reader(f))
-        if not rows:
+        with open(file_path, "r") as f:            # Reading the contents of file 
+            rows = list(csv.reader(f))             # Rows is list of list
+        if not rows:                            
             return
 
         # Calculate max width for each column
         col_widths = [max(len(str(cell).strip()) for cell in col) for col in zip(*rows)]
-
-        with open(file_path, "w", newline="") as f:
+        # col_width is list of integers
+        
+        with open(file_path, "w", newline="") as f:         #Writing the contents to file
             for row in rows:
                 aligned = []
                 for i, cell in enumerate(row):
                     clean = str(cell).strip()
-                    padded = clean.ljust(col_widths[i])
+                    padded = clean.ljust(col_widths[i])     
                     aligned.append(padded)
                 line = ', '.join(aligned)  # comma + one space
-                f.write(line + '\n')
+                f.write(line + '\n')       # writes the content to the file
+
+    # If any error occurs, the try block breaks and execute the except block
     except Exception as e:
         print(f"Error aligning CSV: {e}")
 
 # -------------------- File Paths --------------------
-LOGIN_FILE = "Login.csv"
-USER_FILE = "User_Details.csv"
-BOOKING_FILE = "Current_Booking.csv"
-PREVIOUS_BOOKING_FILE = "Previous_Booking.csv"
-FLIGHT_FILE = "Flights.csv"
-PASSENGER_FILE = "Passenger_Details.csv"
-airports = ["Bengaluru", "Chennai", "Hyderabad", "Delhi", "Kolkata"]
-logged_in_user = {"Username": "", "password": "","userID":"","Name":""}
-selected_flight = None
-passenger_entries = []
-passenger_count = 0
-current_passenger_index = 0
-is_editing = False
-backtracking = False
-pending_booking_data = []
-selected_passengers = []
-selected_passenger_ids = set()
+LOGIN_FILE = "Login.csv"                                                    # Login file
+USER_FILE = "User_Details.csv"                                              # User Details file
+BOOKING_FILE = "Current_Booking.csv"                                        # Current Booking file    
+PREVIOUS_BOOKING_FILE = "Previous_Booking.csv"                              # Previous Booking file
+FLIGHT_FILE = "Flights.csv"                                                 # Flight file
+PASSENGER_FILE = "Passenger_Details.csv"                                    # Passenger Detail file
+
+#---------------------Global Variables-------------------
+airports = ["Bengaluru", "Chennai", "Hyderabad", "Delhi", "Kolkata"]        # List of airports
+logged_in_user = {"Username": "", "password": "","userID":"","Name":""}     # Storing user Details
+selected_flight = None          # Stores Selected flight                    # List               
+passenger_entries = []          # Stores entered Passenger details          # List
+passenger_count = 0                                                         # Integer
+current_passenger_index = 0                                                 # Integer
+is_editing = False                                                          # Boolean Value
+backtracking = False                                                        # Boolean Value
+pending_booking_data = []                                                   # List
+selected_passengers = []        # Stores selected passenger detials         # List
+selected_passenger_ids = set()  # Stores the IDs of selected passengers     # Set
 
 # -------------------- User Management --------------------
 def read_users():
-    if not os.path.exists(LOGIN_FILE):
-        return []
+    if not os.path.exists(LOGIN_FILE):                    # If File does not exist...
+        return []                                         # ... returns empty list
+    
+    # The below code does not run if file does not exist
     with open(LOGIN_FILE, mode="r") as file:
         reader = csv.reader(file)
-        next(reader)
-        return [row for row in reader if row]
+        next(reader)                                      # Skips the Headers
+        return [row for row in reader if row]             # Returns a list          
 
-def write_user(Username, password,userID):
-    if not os.path.exists(LOGIN_FILE):
-        with open(LOGIN_FILE,mode="w",newline="") as file:
+def write_user(Username, password,userID):                      # All parameters are string
+    if not os.path.exists(LOGIN_FILE):                          # If File does not exist...
+        with open(LOGIN_FILE,mode="w",newline="") as file:      
             writer = csv.writer(file)
-            writer.writerow(["Username", "Password", "UserID"])
+            writer.writerow(["Username", "Password", "UserID"]) #... Will write these contents to file
+    
     with open(LOGIN_FILE, mode="a", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow([Username, password, userID])
-    align_csv(LOGIN_FILE)
+        writer.writerow([Username, password, userID])       # Appends Username , password, UserID to file
+    align_csv(LOGIN_FILE)                                   # Aligns the file
 
-def read_user_details():
-    if not os.path.exists(USER_FILE):
+def read_user_details():                            # Same as read_users()
+    if not os.path.exists(USER_FILE):           
         return []
+    
     with open(USER_FILE, mode="r") as file:
         reader = csv.reader(file)
         next(reader)
         return [row for row in reader if row]
 
-def write_user_details(userID,User_details):
+def write_user_details(userID,User_details):        # Same as write_user function
     if not os.path.exists(USER_FILE):
         with open(USER_FILE,mode="w",newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["UserID","Name","DOB","Email","Gender","Phone","Nationality"])
+
     with open(USER_FILE, mode="a", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow([userID]+User_details)
+        writer.writerow([userID]+User_details)     # User_details is a list 
     align_csv(USER_FILE)
 
 def read_passenger_details():
-    if not os.path.exists(PASSENGER_FILE):
+    if not os.path.exists(PASSENGER_FILE):          
         return []
-    with open(PASSENGER_FILE, mode="r") as file:
+    
+    with open(PASSENGER_FILE, mode="r") as file:                
         reader = csv.reader(file)
         next(reader)
         passenger = []
         for row in reader:
-            if row[0].strip()==logged_in_user["userID"].strip():
-                passenger += [row]
+            if row[0].strip()==logged_in_user["userID"].strip(): # If userID in passenger details row... 
+                passenger += [row]                       # ...Add the details (list) to passenger (list)
         return passenger
 
-def write_passenger_details(userID,passengerID,passenger_details):
+def write_passenger_details(userID,passengerID,passenger_details):  # Same as write_user function
     if not os.path.exists(PASSENGER_FILE):
         with open(PASSENGER_FILE,mode="w",newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["UserID","PassengerID","Name","DOB","Email","Gender","Phone"])
+
     with open(PASSENGER_FILE, mode="a", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow([userID,passengerID]+passenger_details)
+        writer.writerow([userID,passengerID]+passenger_details)     # passenger_details is a list
     align_csv(PASSENGER_FILE)
 
-def generate_userID():
-    users = read_users()
-    if not users:
-        return "U001"
+def generate_userID():          # Used to generate userID when new users are created
+    users = read_users()        # users stores all the user details (list of list)
+    if not users:               # If users = []...
+        return "U001"           # ...returns "U001" 
     
     userID = 'U' + str(int(users[len(users)-1][2].strip()[1::])+1).zfill(3)
     return userID
 
-def generate_passengerID():
-    passengers = read_passenger_details()
-    if not passengers:
-        return logged_in_user["userID"].strip()+"P001"
+def generate_passengerID():               # Used to generate passengerID when new passengers are created
+    passengers = read_passenger_details() # passengers stores all the passenger details (list of list)
+    if not passengers:                    # If passengers = []...
+        return logged_in_user["userID"].strip()+"P001"  # ... returns f"{UserID}P001"
     
     passengerID = logged_in_user["userID"].strip() + 'P' + str(int(passengers[-1][1].strip()[5::])+1).zfill(3)
     return passengerID
 
-def create_account(prefill_user="", prefill_pass=""):
-    center_window(300, 380)
+def create_account(prefill_user="", prefill_pass=""):   
+    center_window(300, 380)                       # Places the tkinter window at the center of the screen
     login_frame.pack_forget()
     account_frame.pack(fill="both", expand=True)
 
@@ -145,9 +158,9 @@ def create_account(prefill_user="", prefill_pass=""):
     entry_pass.insert(0, prefill_pass)
     entry_pass.pack(pady=5)
 
-    def proceed_to_confirm():
-        Username = entry_user.get().strip()
-        password = entry_pass.get().strip()
+    def proceed_to_confirm():                   # Called when clicked on next
+        Username = entry_user.get().strip()     # Username
+        password = entry_pass.get().strip()     # Password
 
         if not Username or not password:
             messagebox.showerror("🚫 Error", "Username and password cannot be empty.")
@@ -155,7 +168,8 @@ def create_account(prefill_user="", prefill_pass=""):
         if ' '  in Username:
             messagebox.showerror("🚫 Error","No Spaces allowed in Username")
             return
-        if Username[0]  not in [chr(i) for i in range(ord('A'),ord('['))]+[chr(i) for i in range(ord('a'), ord('{') )]:
+        # Checks whether 1st letter of Username is not a special character
+        if Username[0] not in [chr(i) for i in range(ord('A'),ord('['))]+[chr(i) for i in range(ord('a'), ord('{') )]:
             messagebox.showerror("🚫 Error", "Username cannot start with special character.")
             return
         for i in Username:
@@ -170,13 +184,13 @@ def create_account(prefill_user="", prefill_pass=""):
             return
         
         users = read_users()
-        usernames = [u[0].strip() for u in users]
+        usernames = [u[0].strip() for u in users]   # Extracts usernames from user details
 
-        if Username in usernames:
+        if Username in usernames:                   # Checks if Username already present
             messagebox.showerror("🚫 Error", "Account already exists.")
             return
 
-        userID = generate_userID()
+        userID = generate_userID()                  # Creates an unique ID for user
         confirm_password(Username, password,userID)
 
     tk.Button(box, text="Next ➡️", command=proceed_to_confirm,
@@ -200,7 +214,7 @@ def confirm_password(Username, password,userID):
     entry_confirm = tk.Entry(box, show="*", font=("Helvetica", 11), justify="center")
     entry_confirm.pack(pady=5)
 
-    def submit():
+    def submit():                               # Called when clicked on Submit
         confirm = entry_confirm.get().strip()
         if confirm == password:
             account_frame.pack_forget()
@@ -341,33 +355,34 @@ def login():
     entry_pass = tk.Entry(box, show="*", font=("Helvetica", 11), justify="center")
     entry_pass.pack(pady=5)
 
-    def submit():
+    def submit():                               # Called when clicked on submit
         Username = entry_user.get().strip()
         password = entry_pass.get().strip()
         users = read_users()
-        user_detail = read_user_details()
-        usernames = [u[0].strip() for u in users]
+        user_detail = read_user_details()           # Stores User details (list of list)
+        usernames = [u[0].strip() for u in users]   # Extracts the usernames 
         user_name = {}
         for u in user_detail:
-            user_name.update({u[0].strip():u[1].strip()})
+            user_name.update({u[0].strip():u[1].strip()})   # Adds {userID : Name} to the dictionary
 
         if Username not in usernames:
             messagebox.showerror("❌ Error", "Username not found.")
-            return  # ✅ Stay on login screen
+            return  
 
         for u in users:
             if u[0].strip() == Username and u[1].strip() == password:
-                logged_in_user["Username"] = Username
-                logged_in_user["password"] = password
-                logged_in_user["userID"] = u[2]  
-                logged_in_user["Name"] = user_name.get(u[2].strip(),"")               
+                logged_in_user["Username"] = Username                       # Stores username
+                logged_in_user["password"] = password                       # Stores password
+                logged_in_user["userID"] = u[2]                             # Stores userID
+                logged_in_user["Name"] = user_name.get(u[2].strip(),"")     # Stores Name
                 messagebox.showinfo("🎉 Welcome", f"Login successful. Welcome {logged_in_user['Name']} !")
                 account_frame.pack_forget()
                 center_window(800, 600)
                 show_dashboard()
                 return
-
-        messagebox.showerror("❌ Error", "Incorrect password.")
+        
+        # If username or password does not match
+        messagebox.showerror("❌ Error", "Incorrect username or password.")
         return  # ✅ Stay on login screen
 
     tk.Button(box, text="Submit ✅", command=submit, bg="#FF9800", fg="white", font=("Helvetica", 11)).pack(pady=(10, 5))
@@ -376,7 +391,7 @@ def login():
     
 # -------------------- Dashboard --------------------
 def show_logged_in_user_details():
-    dashboard_frame.pack_forget()  # Hide dashboard
+    dashboard_frame.pack_forget()  
 
     account_info_frame = tk.Frame(root, bg="#f5f5f5")
     account_info_frame.pack(fill="both", expand=True)

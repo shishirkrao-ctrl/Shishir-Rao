@@ -1,291 +1,292 @@
 line 10:
-try and except block:
-Error handling
-Write a rosky code inside try block
-If there is an error then it executes except block
+	try and except block:
+		Error handling
+		Write a rosky code inside try block
+		If there is an error then it executes except block
 
 line 17: 
-zip(*rows): 
-zip converts list of row to list of column
-Ex:	l = [['Shishir','10'],['Rahul','20']]
-	print(zip(*l))                               #  It prints [('Shishir', 'Rahul'), ('10,'20')]
+	zip(*rows): 
+		zip converts list of row to list of column
+		Ex:	l = [['Shishir','10'],['Rahul','20']]
+			print(zip(*l))                               #  It prints [('Shishir', 'Rahul'), ('10,'20')]
 
-'*' in zip(*rows):
-Is an unpacking operator
-It unpacks each inner list(row) to pass it as an argument to zip()
-Ex:	zip(l) takes l as one argument
-	zip(*l) takes each inner list of l as one argument
+	'*' in zip(*rows):
+		Is an unpacking operator
+		It unpacks each inner list(row) to pass it as an argument to zip()
+		Ex:	zip(l) takes l as one argument
+			zip(*l) takes each inner list of l as one argument
 
 line 22:
-for i, cell in enumerate(row): :
-'row' is an inner list 
-'i' will hold the index of the inner list
-'cell' will hold the elements of the inner list
+	for i, cell in enumerate(row): :
+		'row' is an inner list 
+		'i' will hold the index of the inner list
+		'cell' will hold the elements of the inner list
 
 line 24:
-padded = clean.ljust(col_widths[i]):
-ljust(width) is left justifies. 
-It adds space if string is less than width
+	padded = clean.ljust(col_widths[i]):
+		ljust(width) is left justifies. 
+		It adds space if string is less than width
 
 line 52:
-if not os.path.exists(LOGIN_FILE):
-os is a module
-path is a sub module that deals with file path operation
-exists is a function that checks whether the path exists or not (returns Boolean value)
+	if not os.path.exists(LOGIN_FILE):
+		os is a module
+		path is a sub module that deals with file path operation
+		exists is a function that checks whether the path exists or not (returns Boolean value)
 
 line 84:
-writer.writerow([userID]+User_details):
-User_details is a list
+	writer.writerow([userID]+User_details):
+		User_details is a list
 
 line 106:
-writer.writerow([userID,passengerID]+passenger_details) :
-passenger_details is a list
+	writer.writerow([userID,passengerID]+passenger_details) :
+		passenger_details is a list
 
 line 114:
-userID = 'U' + str(int(users[-1][2].strip()[1::])+1).zfill(3) :
-users is a list of list
-users[-1] will extract the last user details
-users[-1][2] will extract the last userID
+	userID = 'U' + str(int(users[-1][2].strip()[1::])+1).zfill(3) :
+		users is a list of list
+		users[-1] will extract the last user details
+		users[-1][2] will extract the last userID
 
-why indexing from 1 ( users[-1][2].strip()[1::] )??
-userID is in the form of "Uxxx" where xxx are numbers
-Ex: 	u1 = "U001"
-	u = u1[1::] 	# u = "001"
-					# To increment convert to int add 1 convert to string.
-	U =int(u1)	# U = 1
-	U += 1		# U = 2
-	u = str(U)	# u = "2"	But we need "002"
+	why indexing from 1 ( users[-1][2].strip()[1::] )??
+		userID is in the form of "Uxxx" where xxx are numbers
+		Ex: 	u1 = "U001"
+			u = u1[1::] 	# u = "001"
+							# To increment convert to int add 1 convert to string.
+			U =int(u1)	# U = 1
+			U += 1		# U = 2
+			u = str(U)	# u = "2"	But we need "002"
 
-zfill(3):
-It adds 0 on the left until it reaches the given width
-Ex:	a = "19"
-	b = a.zfill(3)	# b = "019"
-	b = a.zfill(4)	# b = "0019"
-
-In the previous example,
-We need "002" but after converting to string it is "2"
-So we do 
-	var = u.zfill(3)	#var = "002"
+	zfill(3):
+		It adds 0 on the left until it reaches the given width
+		Ex:	a = "19"
+			b = a.zfill(3)	# b = "019"
+			b = a.zfill(4)	# b = "0019"
+		In the previous example,
+		We need "002" but after converting to string it is "2"
+		So we do 
+			var = u.zfill(3)	#var = "002"
 
 line 126:
-center_window(300, 380) :
-center_window is a function which make sure the UI stays at the center of screen
+	center_window(300, 380) :
+		center_window is a function which make sure the UI stays at the center of screen
+		It is a user_defined function
 
 line 127:
-login_frame.pack_forget() :
-Removes the login_frame widget from the layout [Only removed not destroyed]
+	login_frame.pack_forget() :
+		Removes the login_frame widget from the layout [Only removed not destroyed]
 
 line 128:
-account_frame.pack(fill="both", expand=True) :
-Calling account_frame( a frame ) into the layout
+	account_frame.pack(fill="both", expand=True) :
+		Calling account_frame( a frame ) into the layout
 
 line 130:
-for widget in account_frame.winfo_children(): :
-account_frame is a frame.
-winfo_children() is a list containing all the labels, buttons, etc 
-account_frame.winfo_children() returns a list of all the widgets in account_frame
+	for widget in account_frame.winfo_children(): :
+		account_frame is a frame.
+		winfo_children() is a list containing all the labels, buttons, etc 
+		account_frame.winfo_children() returns a list of all the widgets in account_frame
 
 line 131:
-widget.destroy() :
-widget is elements of winfo_children (List) 
-widget.destroy() destroyes the widget
+	widget.destroy() :
+		widget is elements of winfo_children (List) 
+		widget.destroy() destroyes the widget
 
 line 133:
-box = tk.Frame(account_frame, bg="#e3f2fd", bd=2, relief="groove") :
-tk.Frame(account_frame,...) creating a new widget frame [inside account_frame]
+	box = tk.Frame(account_frame, bg="#e3f2fd", bd=2, relief="groove") :
+		tk.Frame(account_frame,...) creating a new widget frame [inside account_frame]
 
-bg = "#e3f2fd" : 
-It is colour code 
-bg is used for background colour
+	bg = "#e3f2fd" : 
+		It is colour code 
+		bg is used for background colour
 
-bd = 2 :
-Sets the border width of the box to 2 pixels 
+	bd = 2 :
+		Sets the border width of the box to 2 pixels 
 
-relief = "groove":
-Gives the border a grooved look. 
-Other options like "flat", "raised", "sunken", ridge"
+	relief = "groove":
+		Gives the border a grooved look. 
+		Other options like "flat", "raised", "sunken", ridge"
 
 line 134:
-box.place(relx=0.5, rely=0.5, anchor="center", width=300, height=380) :
-box.place(...) is a geometry manager [like pack(),grid()]
+	box.place(relx=0.5, rely=0.5, anchor="center", width=300, height=380) :
+		box.place(...) is a geometry manager [like pack(),grid()]
 
-relx = 0.5 , rely = 0.5 :
-Places the box at 50% of width and 50% of height of account_frame
+	relx = 0.5 , rely = 0.5 :
+		Places the box at 50% of width and 50% of height of account_frame
 
-anchor = "center" :
-Aligns the widget at the center 
-Other options like "n", "s", "e", "w", "nw", "se"
+	anchor = "center" :
+		Aligns the widget at the center 
+		Other options like "n", "s", "e", "w", "nw", "se"
 
-width=300, height=380 :
-Width and height of the box
+	width=300, height=380 :
+		Width and height of the box
 
 line 136:
-tk.Label(box, text="🆕 Create Account", font=("Helvetica", 14, "bold"), bg="#e3f2fd").pack(pady=(15, 10)) :
+	tk.Label(box, text="🆕 Create Account", font=("Helvetica", 14, "bold"), 
+			bg="#e3f2fd").pack(pady=(15, 10)) :
 
-tk.Label(box) creates a label inside the box [Label() is a function]
+		tk.Label(box) creates a label inside the box [Label() is a function]
 
-text="🆕 Create Account" :
-Label text is Create Account
+	text="🆕 Create Account" :
+		Label text is Create Account
 
-font=("Helvetica", 14, "bold") :
-Font details of text (label)
+	font=("Helvetica", 14, "bold") :
+		Font details of text (label)
 
-pady = (15,10) :
-Adds 15 pixels above and 10 pixels below (uneven spacing) the widget (label) 
-Ex: pady = 10
-	# Adding 10 pixels above and below (even spacing) the widget 
+	pady = (15,10) :
+		Adds 15 pixels above and 10 pixels below (uneven spacing) the widget (label) 
+		Ex: pady = 10
+		# Adding 10 pixels above and below (even spacing) the widget 
 
 line 139:
-entry_user = tk.Entry(box, font=("Helvetica", 11), justify="center")
-entry_user is your widget (text field) inside the box
+	entry_user = tk.Entry(box, font=("Helvetica", 11), justify="center")
+		entry_user is your widget (text field) inside the box
 
-tk.Entry() creates a single line text input field 
+		tk.Entry() creates a single line text input field 
 
-justify = "center" :
-Aligns the text that the user types in the entry box to the center.
-Other options are left and right
+	justify = "center" :
+		Aligns the text that the user types in the entry box to the center.
+		Other options are left and right
 
 line 140:
-entry_user.insert(0, prefill_user) :
-insert(index,text) : 
-This is a method of Tkinter’s Entry widget
-It inserts the given text at specified index
+	entry_user.insert(0, prefill_user) :
+	insert(index,text) : 
+		This is a method of Tkinter’s Entry widget
+		It inserts the given text at specified index
 
-index = 0, text = prefill_user :
-Inserts the text at index 0 [At the beginning of the entry box]
-prefill_user is " " at the beginning
-entry_user is empty at the beginning, so no text is displayed
+	index = 0, text = prefill_user :
+		Inserts the text at index 0 [At the beginning of the entry box]
+		prefill_user is " " at the beginning
+		entry_user is empty at the beginning, so no text is displayed
 
 line 149:
-Username = entry_user.get().strip() :
-Username is a variable
-get() is a method to retrieve the contents in entry_user widget
-
-Ex:	If user typed Rahul in the input field (entry_user)
-	User = entry_user.get()		# User = "Rahul"
+	Username = entry_user.get().strip() :
+		Username is a variable
+		get() is a method to retrieve the contents in entry_user widget
+		Ex:	If user typed Rahul in the input field (entry_user)
+			User = entry_user.get()		# User = "Rahul"
 
 line 153:
-messagebox.showerror("🚫 Error", "Username and password cannot be empty.") :
-messagebox is a Tkinter’s module
-showerror() is it's function
+	messagebox.showerror("🚫 Error", "Username and password cannot be empty.") :
+		messagebox is a Tkinter’s module
+		showerror() is it's function
 
-showerror(title,message) :
-It takes 2 arguments title and message
+	showerror(title,message) :
+	It takes 2 arguments title and message
 
 line 182:
-tk.Button(box, text="Next ➡️", command=proceed_to_confirm,
+	tk.Button(box, text="Next ➡️", command=proceed_to_confirm,
             bg="#4CAF50", fg="white", font=("Helvetica", 11)).pack(pady=(10, 5)) :
+	tk.Button(...) creates a button widget
 
-tk.Button(...) creates a button widget
+	command = proceed_to_confirm :
+		Function to be called when the button is clicked
 
-command = proceed_to_confirm :
-Function to be called when the button is clicked
-
-fg = "white" :
-Sets the text colour to white
+	fg = "white" :
+		Sets the text colour to white
 
 line 185:
-tk.Button(box, text="⬅️ Back", 
+	tk.Button(box, text="⬅️ Back", 
 		command=lambda: [account_frame.pack_forget(), center_window(800, 600), login_frame.pack(pady=10)],
               bg="#604745", fg="white", font=("Helvetica", 11)).pack()
 
-command = lambda:[...]:
-lambda is used to run multiple commands at a time.
+	command = lambda:[...]:
+		lambda is used to run multiple commands at a time.
 
-.pack():
-Places the button directly below the "Next" button
+	pack():
+		Places the button directly below the "Next" button
 
 line 193:
- account_frame.configure(bg="#f5f5f5") :
- configure() Updates the widget's properties after it has been created
+	account_frame.configure(bg="#f5f5f5") :
+		configure() Updates the widget's properties after it has been created
 
 line 236:
-dob_mindate = datetime(1900, 1, 1) :
-datetime() is a function imported from datetime module
-Format: datetime(yyyy,mm,dd)
-here we are setting minimum date to be shown in the calendar as 1900-Jan-01
+	dob_mindate = datetime(1900, 1, 1) :
+		datetime() is a function imported from datetime module
+
+	Format: datetime(yyyy,mm,dd)
+		Here we are setting minimum date to be shown in the calendar as 1900-Jan-01
 
 line 237:
-dob_maxdate = datetime.today().replace(year=datetime.today().year - 18) :
-datetime.today() :
-Gives today's date and time [At the time of execution]
+	dob_maxdate = datetime.today().replace(year=datetime.today().year - 18) :
+	datetime.today() :
+		Gives today's date and time [At the time of execution]
 
-.replace(year=...) :
-Creates a new datetime object with year replaced by the year you specify
+	replace(year=...) :
+		Creates a new datetime object with year replaced by the year you specify
 
-datetime.today().year - 18 :
-Returns current year - 18		# Current year is an int
+	datetime.today().year - 18 :
+		Returns current year - 18		# Current year is an int
 
-dob_maxdate:
-Setting the max date to be shown in the calendar
+	dob_maxdate:
+		Setting the max date to be shown in the calendar
 
 line 239:
-dob_picker = DateEntry(
-			box,	width=12,	
-			background='darkblue',	foreground='white',		
-			borderwidth=2,	mindate=dob_mindate,	
-			maxdate=dob_maxdate,	year=dob_maxdate.year,	
-			month=dob_maxdate.month,	day=dob_maxdate.day,	
-			date_pattern='dd-mm-yyyy',	state="normal"
-			)
+	dob_picker = DateEntry(
+				box,	width=12,	
+				background='darkblue',	foreground='white',		
+				borderwidth=2,	mindate=dob_mindate,	
+				maxdate=dob_maxdate,	year=dob_maxdate.year,	
+				month=dob_maxdate.month,	day=dob_maxdate.day,	
+				date_pattern='dd-mm-yyyy',	state="normal"
+				)
 
-DateEntry() :
-Creates a date picker widget inside Tkinter’s box
+	DateEntry() :
+		Creates a date picker widget inside Tkinter’s box
 
-width = 12 :
-Sets the width of entry field 
+	width = 12 :
+		Sets the width of entry field 
 
-borderwidth = 2 :
-Sets the width of border of calendar 
+	borderwidth = 2 :
+		Sets the width of border of calendar 
 
-mindate = dob_mindate , maxdate = dob_maxdate :
-Sets the minimum and maximum selectable date respectively
+	mindate = dob_mindate , maxdate = dob_maxdate :
+		Sets the minimum and maximum selectable date respectively
 
-year = dob_maxdate.year, month=dob_maxdate.month, day=dob_maxdate.day :
-Sets the default selected date to the maximum allowed Date
+	year = dob_maxdate.year, month=dob_maxdate.month, day=dob_maxdate.day :
+		Sets the default selected date to the maximum allowed Date
 
-date_pattern = 'dd-mm-yyy' :
-Format of how the date is to be displayed
-Ex: 01-12-2025
+	date_pattern = 'dd-mm-yyy' :
+		Format of how the date is to be displayed
+		Ex: 01-12-2025
 
-state = "normal" :
-User can type a date manually or use the drop‑down calendar
-Other options are "readonly" , "disabled"
+	state = "normal" :
+		User can type a date manually or use the drop‑down calendar
+		Other options are "readonly" , "disabled"
 
 line 253:
-dob_picker.pack():
-Places the widget directly below the "Date of Birth" label
+	dob_picker.pack():
+		Places the widget directly below the "Date of Birth" label
 
 line 262:
-gender_var = tk.StringVar(value="Male") :
-tk.StringVar() :
-It is a special Tkinter variable class that holds a string value
-Here value is Male
+	gender_var = tk.StringVar(value="Male") :
+	tk.StringVar() :
+		It is a special Tkinter variable class that holds a string value
+		Here value is Male
 
 line 263:
-gender_frame = tk.Frame(box, bg="#e3f2fd") :
-Creating a gender_frame inside box (which itself is a frame)
+	gender_frame = tk.Frame(box, bg="#e3f2fd") :
+		Creating a gender_frame inside box (which itself is a frame)
 
-ttk.Radiobutton(gender_frame, 	text="Male", 
-				variable=gender_var, 	value="Male"
-			   ).pack(side="left", padx=10)
+line 278:
+	ttk.Radiobutton(gender_frame, 	text="Male", 
+					variable=gender_var, 	value="Male"
+				).pack(side="left", padx=10)
 
-ttk.Radiobutton(...) :
-Creates a Radiobutton widget. 
+	ttk.Radiobutton(...) :
+		Creates a Radiobutton widget. 
 
-variable = gender_var :
-Links the radio button to a Tkinter variable (StringVar)
-All radio buttons in the same group share this variable.
-When this button is selected, the variable’s value changes.
+	variable = gender_var :
+		Links the radio button to a Tkinter variable (StringVar)
+		All radio buttons in the same group share this variable.
+		When this button is selected, the variable’s value changes.
 
-value = "Male" :
-Defines what value should gender_var hold if the button is selected
-Here it is "Male"
-So by default the "Male" button is selected
+	value = "Male" :
+		Defines what value should gender_var hold if the button is selected
+		Here it is "Male"
+		So by default the "Male" button is selected
 
-.pack(side = "left", padx = 10) :
-Places the button on the left side of the frame
-Gives a spacing of 10 pixels on both side
+	pack(side = "left", padx = 10) :
+		Places the button on the left side of the frame
+		Gives a spacing of 10 pixels on both side
 
 Note:
 tk. and ttk. are different
@@ -293,278 +294,292 @@ tk is Tkinter
 ttk is Themed Tkinter
 
 line 277:
-nationality_cb = ttk.Combobox(box, values=countries, state="readonly", justify="center") :
+	nationality_cb = ttk.Combobox(box, values=countries, state="readonly", justify="center") :
 
-ttk.Combobox(...) :
-A drop-down list widget from Tkinter’s themed ttk module. 
-It lets users select one option from a list.
+	ttk.Combobox(...) :
+	A drop-down list widget from Tkinter’s themed ttk module. 
+	It lets users select one option from a list.
 
-state = "readonly :
-It lets the user to select from the drop down list
+	state = "readonly :
+		It lets the user to select from the drop down list
 
 line 281:
-name = name_entry.get().strip() :
-name_entry :
-It is the name given to Entry widget
+	name = name_entry.get().strip() :
+	name_entry :
+		It is the name given to Entry widget
 
-name_entry.get() :
-It retrieves the data stored in the Entry widget
+	name_entry.get() :
+		It retrieves the data stored in the Entry widget
 
 line 282:
-dob = dob_picker.get_date().strftime("%d-%m-%Y") :
-dob_picker :
-It is the name given to DateEntry widget
+	dob = dob_picker.get_date().strftime("%d-%m-%Y") :
+	dob_picker :
+		It is the name given to DateEntry widget
 
-.get_date() :
-It returns the date in DateEntry widget as a datetime.date object
-datetime.date(2025,12,2)	#datetime.date(year,month,date)
+	get_date() :
+		It returns the date in DateEntry widget as a datetime.date object
+		datetime.date(2025,12,2)	#datetime.date(year,month,date)
 
-.strftime("%d-%m-%Y") :
-It converts the datetime.date object to string
-Format ("DD-MM-YYYY")
-
-There is also ("%d-%m-%y") format 
-In this format, the string format is "DD-MM-YY"
+	strftime("%d-%m-%Y") :
+		It converts the datetime.date object to string
+		Format ("DD-MM-YYYY")
+		There is also ("%d-%m-%y") format 
+		In this format, the string format is "DD-MM-YY"
 
 line 398:
-card.config(width=720, height=300) :
-It will set the width and height of the card
+	card.config(width=720, height=300) :
+		It will set the width and height of the card
 
 line 400:
-card.pack_propagate(False) :
-This make sure that the frame does not resize itself to fit a widget.
-If it is True, the frame will automatically adjust its size to fit the widget
-By default the argument is True
+	card.pack_propagate(False) :
+		This make sure that the frame does not resize itself to fit a widget.
+		If it is True, the frame will automatically adjust its size to fit the widget
+		By default the argument is True
 
 line 405:
-for label, value in zip(labels, details): :
-zip(labels, details) :
-zip takes more than 1 iterables and pairs their elements
-It returns a list of tuple
-So label, value will hold elements of the tuple respectively
+	for label, value in zip(labels, details): :
+	zip(labels, details) :
+		zip takes more than 1 iterables and pairs their elements
+		It returns a list of tuple
+		So label, value will hold elements of the tuple respectively
 
 line 420:
-account_btn.place(x=10, y=10, anchor="nw") :
-.place() :
-It is also a geometry manager positions widget at absolute co ordinates
+	account_btn.place(x=10, y=10, anchor="nw") :
+	place() :
+		It is also a geometry manager positions widget at absolute co ordinates
 
-x=10, y =10 :
-Used to place the button at 10 pixels from left and 10 pixels from top
+	x=10, y =10 :
+		Used to place the button at 10 pixels from left and 10 pixels from top
 
 line 452:
-dep_datetime = datetime.strptime(f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M") :
-datetime.strptime() combines a date string and time string into a datetime object
+	dep_datetime = datetime.strptime(f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M") :
+		datetime.strptime() combines a date string and time string into a datetime object
 
-f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M" :
-Concatenates date and time into single string
-Format "Year-Month-Date Hour-Minutes"
+	f"{dep_date} {dep_time}", "%Y-%m-%d %H:%M" :
+		Concatenates date and time into single string
+		Format "Year-Month-Date Hour-Minutes"
 
 line 486:
-canvas_container = tk.Frame(passenger_frame, bg="#f5f5f5") :
-canvas_container is a frame inside passenger_frame
+	canvas_container = tk.Frame(passenger_frame, bg="#f5f5f5") :
+		canvas_container is a frame inside passenger_frame
 
 line 489:
-canvas = tk.Canvas(canvas_container, bg="#f5f5f5", highlightthickness=0) :
-tk.Canvas() :
-Creates a new canvas widget inside canvas_container (frame)
+	canvas = tk.Canvas(canvas_container, bg="#f5f5f5", highlightthickness=0) :
+	tk.Canvas() :
+		Creates a new canvas widget inside canvas_container (frame)
 
-highlightthickness = 0 :
-Canvas usually have a default thickness.
-Now it will be removed
+	highlightthickness = 0 :
+		Canvas usually have a default thickness.
+		Now it will be removed
 
 line 490:
-scrollbar = ttk.Scrollbar(canvas_container, orient="vertical", command=canvas.yview) :
-ttk.Scrollbar() creates a scrollbar widget
+	scrollbar = ttk.Scrollbar(canvas_container, orient="vertical", command=canvas.yview) :
+		ttk.Scrollbar() creates a scrollbar widget
 
-orient = "vertical" :
-Makes the scrollbar vertical
+	orient = "vertical" :
+		Makes the scrollbar vertical
 
-command=canvas.yview:
-Connects the scrollbar movement to canvas's vertical view
+	command=canvas.yview:
+		Connects the scrollbar movement to canvas's vertical view
 
 line 493:
-scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))) :
-Makes sure that the scrollbar is scrollable 
+	scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all"))) :
+		Makes sure that the scrollbar is scrollable 
 
 line 494:
-canvas.create_window((0, 0), window=scrollable_frame, anchor="nw") :
-canvas.create_window() :
-This method places a Tkinter widget inside canvas
+	canvas.create_window((0, 0), window=scrollable_frame, anchor="nw") :
+	canvas.create_window() :
+		This method places a Tkinter widget inside canvas
 
-create_window((0,0)) :
-Widget will appear on the top left corner of the canvas
+	create_window((0,0)) :
+		Widget will appear on the top left corner of the canvas
 
-window = scrollable_frame :
-This specifies which widget you are embedding.
+	window = scrollable_frame :
+		This specifies which widget you are embedding.
 
 line 495:
-canvas.configure(yscrollcommand=scrollbar.set) :
-This tells the canvas to move when the scrollbar moves
+	canvas.configure(yscrollcommand=scrollbar.set) :
+		This tells the canvas to move when the scrollbar moves
 
 line 504:
-dep_date = datetime.strptime(dep_date, "%Y-%m-%d").strftime("%Y-%m-%d")
-strptime() :
-Converts string to datetime object
+	dep_date = datetime.strptime(dep_date, "%Y-%m-%d").strftime("%Y-%m-%d")
+	strptime() :
+		Converts string to datetime object
 
-strftime():
-Converts datetime object to string
+	strftime():
+		Converts datetime object to string
 
 line 542:
-header.pack(fill="x") :
-fill = "x" :
-Fills how much ever space it gets in x direction (horizontal)
+	header.pack(fill="x") :
+		fill = "x" :
+		Fills how much ever space it gets in x direction (horizontal)
 
 line 575:
-confirm = messagebox.askyesno("❌ Confirm Cancellation",
-							f"Cancel booking for passenger '{passenger_name}'?")
-askyesno() is a function which returns True if user click Yes else returns no
+	confirm = messagebox.askyesno("❌ Confirm Cancellation",
+								f"Cancel booking for passenger '{passenger_name}'?")
+		askyesno() is a function which returns True if user click Yes else returns no
 
 line 698:
-route.columnconfigure(i, weight=1, uniform="route") :
-route.columnconfigure(...) :
-Creates new columns inside route frame
+	route.columnconfigure(i, weight=1, uniform="route") :
+	route.columnconfigure(...) :
+		Creates new columns inside route frame
 
-(i,weight=1,uniform="route") :
-i is from for loop
-weight takes care of the size of the column
-uniform make sure that each column has same size	
-If uniform is not used then space is adjusted based on the contents of the column
+	(i,weight=1,uniform="route") :
+		i is from for loop
+		weight takes care of the size of the column
+		uniform make sure that each column has same size	
+		If uniform is not used then space is adjusted based on the contents of the column
 
 line 701:
-dep.grid(row=0, column=0) :
-grid():
-Tkinter’s geometry manager that arranges widgets in a table‑like structure 
-It follows zero based index
+	dep.grid(row=0, column=0) :
+	grid():
+		Tkinter’s geometry manager that arranges widgets in a table‑like structure 
+		It follows zero based index
 
-(row=0,column=0)
-It will place the contents in row 1
+	(row=0,column=0) :
+		It will place the contents in row 1
 
 Note:
 In the next line pack() is used. 
 So all the three labels(widget) will be placed one below the other in same row
 
 line 794:
-tomorrow = travel_date + timedelta(days=1) :
-tomorrow has a date which is 1 day after the date of travel_date
+	tomorrow = travel_date + timedelta(days=1) :
+		tomorrow has a date which is 1 day after the date of travel_date
 
-travel_date is datetime.date object
+		travel_date will be a datetime.date object
 
-timedelta(days=1):
-It is a timedelta object which represent a duration of time
-Here it is one day
+	timedelta(days=1):
+		It is a timedelta object which represent a duration of time
+		Here it is one day
 
 line 801:
-dep_datetime = datetime.combine(travel_date, dep_time.time()) :
-dep_datetime is a datetime.datetime object 
+	dep_datetime = datetime.combine(travel_date, dep_time.time()) :
+		dep_datetime is a datetime.datetime object 
 
-.combine(travel_date, dep_datetime.time()):
-It combines date from travel_date and time from dep_datetime
+	combine(travel_date, dep_datetime.time()):
+		It combines date from travel_date and time from dep_datetime
 
 line 1006:
-for var, spin, cat, cb, pid, details in selected_rows: :
-Unpacking the elements from tuple
+	for var, spin, cat, cb, pid, details in selected_rows: :
+		Unpacking the elements from tuple
 
-selected_rows :
-It is a list of tuples
-Tuple contains (Boolean value, spinbox widget, category, passenger_id,details)
+	selected_rows :
+		It is a list of tuples
+		Tuple contains (Boolean value, spinbox widget, category, passenger_id,details)
 
-var:
-Contains a Boolean widget (an object)
-var.get() will return Boolean value 
+	var:
+		Contains a Boolean widget (an object)
+		var.get() will return Boolean value 
 
-spin:
-It contains spinbox widget (an object)
-spin.get() will return a number (string)
+	spin:
+		It contains spinbox widget (an object)
+		spin.get() will return a number (string)
 
-cat:
-It contains "Adult" or "Child"
+	cat:
+		It contains "Adult" or "Child"
 
-cb:
-It contains check button widget
+	cb:
+		It contains check button widget
 
-pid:
-It contains passenger_id
+	pid:
+		It contains passenger_id
 
-details:
-It contains a list of passenger info
+	details:
+		It contains a list of passenger info
 
 line 1018:
-spin.config(to=current_qty + max(0, remaining_adults)) :
-spin.config(...) :
-Updates the configuration on spinbox widget
+	spin.config(to=current_qty + max(0, remaining_adults)) :
+	spin.config(...) :
+		Updates the configuration on spinbox widget
 
-to = :
-Updates the upper limit of the checkbox
+	to = :
+		Updates the upper limit of the checkbox
 
-max(0, remaining_adults) :
-If remaining_adults becomes -ve then it returns 0
-Else returns value of remaining_adults
+	max(0, remaining_adults) :
+		If remaining_adults becomes -ve then it returns 0
+		Else returns value of remaining_adults
 
 line 1025:
-cb.config(state="disabled") :
-cb.config(...) :
-Updates the configuration of checkbox widget
+	cb.config(state="disabled") :
+	cb.config(...) :
+		Updates the configuration of checkbox widget
 
-state = "disabled":
-It will disable the checkbox
+	state = "disabled":
+		It will disable the checkbox
 
 line 1050:
-cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11)) :
-tk.Checkbutton(...) :
-It creates a checkbox 
+	cb = tk.Checkbutton(card, text="Select", variable=var, bg="#ffffff", font=("Helvetica", 11)) :
+	tk.Checkbutton(...) :
+		It creates a checkbox 
 
-variable = var :
-var is a Boolean value
-If var is True the checkbox will be ticked
-Else the checkbox will be unticked
+	variable = var :
+		var is a Boolean value
+		If var is True the checkbox will be ticked
+		Else the checkbox will be unticked
 
 line 1056:
-spin = tk.Spinbox(card, from_=1, to=max_quota, font=("Arial", 12), 
-					width=5, justify="center", command=recalc_quotas_and_enforce)
-tk.Spinbox(...) :
-This creates a spinbox (counter)
-from_ = 1 :
-Start value is set to 1
+	spin = tk.Spinbox(card, from_=1, to=max_quota, font=("Arial", 12), 
+						width=5, justify="center", command=recalc_quotas_and_enforce)
+	tk.Spinbox(...) :
+		This creates a spinbox (counter)
 
-to = max_quota :
-Max value is set to max_quota
+	from_ = 1 :
+		Start value is set to 1
+
+	to = max_quota :
+		Max value is set to max_quota
 
 line 1057:
-spin.delete(0, "end") :
-Removes any existing text inside the Spinbox.
-This clears the entire content.
+	spin.delete(0, "end") :
+		Removes any existing text inside the Spinbox.
+		This clears the entire content.
 
 line 1058:
-spin.insert(0, "1") :
-Inserts the string "1" at index 0
-This means the Spinbox will start with the value 1 instead of being empty.
+	spin.insert(0, "1") :
+		Inserts the string "1" at index 0
+		This means the Spinbox will start with the value 1 instead of being empty.
 
 line 1064:
-var.set(True) :
-This updates the  variable’s value to True
+	var.set(True) :
+		This updates the  variable’s value to True
 
 line 1135:
-for _ in range(qty): :
-_  is used because it is not used anywhere inside for loop
-Anything can be used instead of _
+	for _ in range(qty): :
+		_  is used because it is not used anywhere inside for loop
+		Anything can be used instead of _
 
 line 1493:
-refund_var.trace_add("write", update_button_state) :
-refund_var : 
-It is a variable which holds Boolean value
+	refund_var.trace_add("write", update_button_state) :
+	refund_var : 
+		It is a variable which holds Boolean value
 
 trace_add(mode,function) :
-It is a built in Tkinter method
-It lets you attach a callback function that will run automatically when the variable changes.
+	It is a built in Tkinter method
+	It lets you attach a callback function that will run automatically when the variable changes.
 
-write:
-This is the mode argument for trace_add()
-It triggers the callback function when the variable’s value is changed
+	write:
+		This is the mode argument for trace_add()
+		It triggers the callback function when the variable’s value is changed
 
 line 1634:
-root = tk.Tk() :
-This creates the main Tkinter application window
+	root = tk.Tk() :
+		This creates the main Tkinter application window
+
+line 1648:
+	def center_window(width, height): :
+		width, height are the geometry of the Tkinter window
+
+line 1649:
+	screen_width = root.winfo_screenwidth() ;
+	winfo_screenwidth():
+		Returns the width of the display (Monitor)
+
+line 1650:
+	screen_height = root.winfo_screenheight() :
+	winfo_screenheight() :
+		Returns the height of the display (Monitor)
 
 line 1677:
-root.mainloop() :
-This makes sure the application window is open until it is closed forcefully
+	root.mainloop() :
+		This makes sure the application window is open until it is closed forcefully

@@ -378,22 +378,22 @@ def login():
                 messagebox.showinfo("🎉 Welcome", f"Login successful. Welcome {logged_in_user['Name']} !")
                 account_frame.pack_forget()
                 center_window(800, 600)
-                show_dashboard()
+                show_dashboard()                                        # Calls show_dashboard function
                 return
         
         # If username or password does not match
         messagebox.showerror("❌ Error", "Incorrect username or password.")
-        return  # ✅ Stay on login screen
+        return  
 
     tk.Button(box, text="Submit ✅", command=submit, bg="#FF9800", fg="white", font=("Helvetica", 11)).pack(pady=(10, 5))
     tk.Button(box, text="⬅️ Back", command=lambda: [account_frame.pack_forget(),center_window(800, 600),login_frame.pack(pady=10)], 
               bg="#604745", fg="white", font=("Helvetica", 11)).pack(pady=5)
     
 # -------------------- Dashboard --------------------
-def show_logged_in_user_details():
+def show_logged_in_user_details():                      
     dashboard_frame.pack_forget()  
 
-    account_info_frame = tk.Frame(root, bg="#f5f5f5")
+    
     account_info_frame.pack(fill="both", expand=True)
 
     for widget in account_info_frame.winfo_children():
@@ -401,8 +401,10 @@ def show_logged_in_user_details():
 
     tk.Label(account_info_frame, text="👤 Account Information", font=("Helvetica", 16, "bold"), bg="#f5f5f5").pack(pady=20)
 
-    userID = logged_in_user["userID"].strip()
+    userID = logged_in_user["userID"].strip()       # Extracting userID
     user_details = read_user_details()
+
+    # user_dict have elements in format of {userID : [Name, DOB, Email, Gender, Phone, Nationality]}
     user_dict = {row[0].strip(): [cell.strip() for cell in row[1:]] for row in user_details}
     details = user_dict.get(userID)
 
@@ -426,6 +428,8 @@ def show_logged_in_user_details():
     tk.Button(account_info_frame, text="⬅️ Back to Dashboard",
               command=lambda: [account_info_frame.pack_forget(), dashboard_frame.pack(fill="both",expand=True)],
               bg="#604745", fg="white", font=("Helvetica", 12), width=20).pack(pady=20)
+    tk.Button(account_info_frame, text="🚪 Logout", command=logout,
+                width=20, bg="#604745", fg="white", font=("Helvetica", 12)).pack(pady=5)
 
 def show_dashboard():
     center_window(800, 600)
@@ -437,7 +441,7 @@ def show_dashboard():
 def logout():
     global logged_in_user
     logged_in_user = {"Username": "", "password": "","userID":"","Name":""}
-    dashboard_frame.pack_forget()
+    account_info_frame.pack_forget()
     login_frame.pack(pady=10)
 
 def segregate_bookings():
@@ -1673,10 +1677,11 @@ tk.Button(dashboard_frame, text="🔍 Book Flights", command=open_search_window,
           width=20, bg="#2196F3", fg="white", font=("Helvetica", 12)).pack(pady=5)
 tk.Button(dashboard_frame, text="📖 See Bookings", command=display_user_bookings,
           width=20, bg="#4CAF50", fg="white", font=("Helvetica", 12)).pack(pady=5)
-tk.Button(dashboard_frame, text="🚪 Logout", command=logout,
-          width=20, bg="#604745", fg="white", font=("Helvetica", 12)).pack(pady=5)
+
 
 account_frame = tk.Frame(root, bg="#FFFFFF")
+
+account_info_frame = tk.Frame(root, bg="#f5f5f5")
 
 search_frame = tk.Frame(root, bg="#f5f5f5")
 
